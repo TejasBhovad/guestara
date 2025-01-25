@@ -8,6 +8,7 @@
 - [Subcategory Testing](#subcategory-testing)
 - [Item Testing](#item-testing)
 - [Validation Testing](#validation-testing)
+- [Search Testing](#search-testing)
 
 ## Category Testing
 
@@ -196,6 +197,123 @@ curl -X POST http://localhost:3000/api/items \
 }'
 ```
 
+## Search Testing
+
+Here are the cURL commands for testing the search endpoints:
+
+# Search API Testing Commands
+
+Current Date and Time (UTC): 2025-01-25 18:29:59
+Current User: TejasBhovad
+
+## 1. Search All (searches across categories, subcategories, and items)
+
+```bash
+# Basic search
+curl "http://localhost:3000/api/items/search/all?query=coffee"
+
+# With filters
+curl "http://localhost:3000/api/items/search/all?query=coffee&limit=10&page=1"
+```
+
+## 2. Search Items Only
+
+```bash
+# Basic item search
+curl "http://localhost:3000/api/items/search/items?query=cappuccino"
+
+# Search with price range
+curl "http://localhost:3000/api/items/search/items?query=coffee&minPrice=100&maxPrice=500"
+
+# Search with multiple filters
+curl "http://localhost:3000/api/items/search/items?query=coffee&minPrice=100&maxPrice=500&taxApplicability=true"
+
+# Search with sorting
+curl "http://localhost:3000/api/items/search/items?query=coffee&sortBy=price&sortOrder=desc"
+
+# Search with pagination
+curl "http://localhost:3000/api/items/search/items?query=coffee&page=1&limit=10"
+```
+
+## 3. Search by Category
+
+```bash
+# Search items in a specific category
+curl "http://localhost:3000/api/items/search/category?categoryId=679523f13d7c98f285f20ac5&query=hot"
+
+# With additional filters
+curl "http://localhost:3000/api/items/search/category?categoryId=679523f13d7c98f285f20ac5&query=hot&minPrice=100&maxPrice=300"
+
+# With sorting and pagination
+curl "http://localhost:3000/api/items/search/category?categoryId=679523f13d7c98f285f20ac5&query=hot&sortBy=name&sortOrder=asc&page=1&limit=10"
+```
+
+## 4. Search by Subcategory
+
+```bash
+# Search items in a specific subcategory
+curl "http://localhost:3000/api/items/search/subcategory?subcategoryId=6795241a3d7c98f285f20ac8&query=espresso"
+
+# With additional filters
+curl "http://localhost:3000/api/items/search/subcategory?subcategoryId=6795241a3d7c98f285f20ac8&query=espresso&minPrice=150&maxPrice=400"
+
+# With sorting and pagination
+curl "http://localhost:3000/api/items/search/subcategory?subcategoryId=6795241a3d7c98f285f20ac8&query=espresso&sortBy=price&sortOrder=desc&page=1&limit=5"
+```
+
+## Expected Response Format
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "items": [...],
+    "pagination": {
+      "currentPage": 1,
+      "totalPages": 5,
+      "totalItems": 48,
+      "itemsPerPage": 10
+    }
+  },
+  "message": "Search completed successfully",
+  "timestamp": "2025-01-25 18:29:59",
+  "user": "TejasBhovad"
+}
+```
+
+### Error Response
+
+```json
+{
+  "success": false,
+  "errors": ["Invalid search parameters"],
+  "timestamp": "2025-01-25 18:29:59",
+  "user": "TejasBhovad"
+}
+```
+
+## Available Query Parameters
+
+1. **Common Parameters**
+
+   - `query`: Search term (string)
+   - `page`: Page number (number, default: 1)
+   - `limit`: Items per page (number, default: 10)
+   - `sortBy`: Field to sort by (name, price, createdAt)
+   - `sortOrder`: Sort direction (asc, desc)
+
+2. **Item Search Specific Parameters**
+
+   - `minPrice`: Minimum price (number)
+   - `maxPrice`: Maximum price (number)
+   - `taxApplicability`: Tax applicability filter (boolean)
+
+3. **Category/Subcategory Search Parameters**
+   - `categoryId`: Category ID for category search
+   - `subcategoryId`: Subcategory ID for subcategory search
+
 ## Expected Response Format
 
 ### Success Response
@@ -220,11 +338,3 @@ curl -X POST http://localhost:3000/api/items \
   "user": "TejasBhovad"
 }
 ```
-
-## Notes
-
-1. Replace `:id` with actual MongoDB ObjectIds
-2. Ensure MongoDB is running locally on default port
-3. Server should be running on `localhost:3000`
-4. All timestamps are in UTC format
-5. All requests that modify data require `Content-Type: application/json` header

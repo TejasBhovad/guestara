@@ -54,12 +54,10 @@ const itemSchema = new mongoose.Schema(
   }
 );
 
-// Virtual for total amount
 itemSchema.virtual("totalAmount").get(function () {
   return this.baseAmount - this.discount;
 });
 
-// Index for search functionality
 itemSchema.index({ name: "text" });
 
 export default mongoose.model("Item", itemSchema);

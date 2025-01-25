@@ -34,7 +34,6 @@ const subcategorySchema = new mongoose.Schema(
   }
 );
 
-// Pre-save middleware to inherit tax properties from category if not specified
 subcategorySchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("categoryId")) {
     const Category = mongoose.model("Category");
