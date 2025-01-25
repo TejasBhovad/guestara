@@ -4,7 +4,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import errorHandler from "./src/middleware/errorHandler.js";
 import categoryRoutes from "./src/routes/categoryRoutes.js";
-
+import subcategoryRoutes from "./src/routes/subcategoryRoutes.js";
+import itemRoutes from "./src/routes/itemRoutes.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -30,6 +31,8 @@ mongoose
 
 // Routes
 app.use("/api/categories", categoryRoutes);
+app.use("/api/subcategories", subcategoryRoutes);
+app.use("/api/items", itemRoutes);
 
 // Error handling middleware
 app.use(errorHandler);

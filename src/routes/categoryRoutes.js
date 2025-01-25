@@ -6,13 +6,13 @@ import {
   updateCategory,
   deleteCategory,
 } from "../controllers/categoryController.js";
-
+import { validateCategory } from "../middleware/validator.js";
 const router = express.Router();
 
-router.post("/", createCategory);
+router.post("/", validateCategory, createCategory);
 router.get("/", getCategories);
 router.get("/:id", getCategoryById);
-router.put("/:id", updateCategory);
+router.put("/:id", validateCategory, updateCategory);
 router.delete("/:id", deleteCategory);
 
 export default router;

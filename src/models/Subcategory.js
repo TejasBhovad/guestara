@@ -1,4 +1,4 @@
-v;
+import mongoose from "mongoose";
 
 const subcategorySchema = new mongoose.Schema(
   {
