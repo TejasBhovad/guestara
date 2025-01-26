@@ -14,7 +14,6 @@ export const searchAll = async (req, res) => {
       });
     }
 
-    // Prepare search results object
     const searchResults = {
       items: [],
       categories: [],
@@ -38,7 +37,7 @@ export const searchAll = async (req, res) => {
       .populate("categoryId")
       .populate("subcategoryId");
 
-    // Search in categories using regex for partial matches
+    // REGEX for partial matches
     searchResults.categories = await Category.find({
       $or: [
         { name: { $regex: query, $options: "i" } },
@@ -46,7 +45,6 @@ export const searchAll = async (req, res) => {
       ],
     });
 
-    // Search in subcategories using regex for partial matches
     searchResults.subcategories = await Subcategory.find({
       $or: [
         { name: { $regex: query, $options: "i" } },
@@ -54,7 +52,7 @@ export const searchAll = async (req, res) => {
       ],
     }).populate("categoryId");
 
-    // Prepare metadata for response
+    // plaCeholder metadata
     const metadata = {
       timestamp: "2025-01-25 17:19:49",
       query: query,
@@ -84,7 +82,6 @@ export const searchAll = async (req, res) => {
   }
 };
 
-// Search items only
 export const searchItems = async (req, res) => {
   try {
     const { query } = req.query;
@@ -135,7 +132,6 @@ export const searchItems = async (req, res) => {
   }
 };
 
-// Search by category
 export const searchByCategory = async (req, res) => {
   try {
     const { categoryId, query } = req.query;
@@ -183,7 +179,6 @@ export const searchByCategory = async (req, res) => {
   }
 };
 
-// Search by subcategory
 export const searchBySubcategory = async (req, res) => {
   try {
     const { subcategoryId, query } = req.query;

@@ -17,7 +17,6 @@ import {
 
 const router = express.Router();
 
-// Regular CRUD routes
 router.post("/", validateItem, createItem);
 router.get("/", getAllItems);
 router.get("/category/:categoryId", getItemsByCategory);
@@ -25,7 +24,6 @@ router.get("/subcategory/:subcategoryId", getItemsBySubcategory);
 router.get("/:identifier", getItem);
 router.put("/:id", validateItem, updateItem);
 
-// Search routes
 router.get("/search/all", searchAll);
 router.get("/search/items", searchItems);
 router.get("/search/category", searchByCategory);

@@ -1,6 +1,5 @@
 import Item from "../models/Item.js";
 
-// Create item
 export const createItem = async (req, res) => {
   try {
     const item = new Item({
@@ -28,7 +27,6 @@ export const createItem = async (req, res) => {
   }
 };
 
-// Get all items
 export const getAllItems = async (req, res) => {
   try {
     const items = await Item.find()
@@ -48,39 +46,6 @@ export const getAllItems = async (req, res) => {
   }
 };
 
-// Search items
-export const searchItems = async (req, res) => {
-  try {
-    const { query } = req.query;
-    if (!query) {
-      return res.status(400).json({
-        success: false,
-        message: "Search query is required",
-      });
-    }
-
-    const items = await Item.find(
-      { $text: { $search: query } },
-      { score: { $meta: "textScore" } }
-    )
-      .sort({ score: { $meta: "textScore" } })
-      .populate("categoryId")
-      .populate("subcategoryId");
-
-    res.status(200).json({
-      success: true,
-      count: items.length,
-      data: items,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-
-// Get items by category
 export const getItemsByCategory = async (req, res) => {
   try {
     const { categoryId } = req.params;
@@ -101,7 +66,6 @@ export const getItemsByCategory = async (req, res) => {
   }
 };
 
-// Get items by subcategory
 export const getItemsBySubcategory = async (req, res) => {
   try {
     const { subcategoryId } = req.params;
@@ -122,13 +86,11 @@ export const getItemsBySubcategory = async (req, res) => {
   }
 };
 
-// Get item by ID or name
 export const getItem = async (req, res) => {
   try {
     const { identifier } = req.params;
     let item;
 
-    // Check if identifier is ObjectId
     if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
       item = await Item.findById(identifier);
     } else {
@@ -158,7 +120,6 @@ export const getItem = async (req, res) => {
   }
 };
 
-// Update item
 export const updateItem = async (req, res) => {
   try {
     const { id } = req.params;

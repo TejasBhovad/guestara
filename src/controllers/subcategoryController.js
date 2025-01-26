@@ -1,6 +1,5 @@
 import Subcategory from "../models/Subcategory.js";
 
-// Create a new subcategory
 export const createSubcategory = async (req, res) => {
   try {
     const subcategory = new Subcategory(req.body);
@@ -18,7 +17,6 @@ export const createSubcategory = async (req, res) => {
   }
 };
 
-// Get all subcategories
 export const getSubcategories = async (req, res) => {
   try {
     const subcategories = await Subcategory.find().populate("categoryId");
@@ -34,7 +32,6 @@ export const getSubcategories = async (req, res) => {
   }
 };
 
-// Get subcategory by ID
 export const getSubcategoryById = async (req, res) => {
   try {
     const subcategory = await Subcategory.findById(req.params.id).populate(
@@ -58,7 +55,6 @@ export const getSubcategoryById = async (req, res) => {
   }
 };
 
-// Get subcategories by category ID
 export const getSubcategoriesByCategory = async (req, res) => {
   try {
     const subcategories = await Subcategory.find({
@@ -77,7 +73,6 @@ export const getSubcategoriesByCategory = async (req, res) => {
   }
 };
 
-// Update subcategory
 export const updateSubcategory = async (req, res) => {
   try {
     const subcategory = await Subcategory.findByIdAndUpdate(
@@ -109,7 +104,6 @@ export const updateSubcategory = async (req, res) => {
   }
 };
 
-// Delete subcategory
 export const deleteSubcategory = async (req, res) => {
   try {
     const subcategory = await Subcategory.findByIdAndDelete(req.params.id);

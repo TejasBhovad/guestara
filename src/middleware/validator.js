@@ -1,11 +1,9 @@
-// validators/validator.js
 import { body, validationResult } from "express-validator";
 import pkg from "mongoose";
 const { isValidObjectId } = pkg;
 import Category from "../models/Category.js";
 import Subcategory from "../models/Subcategory.js";
 
-// Utility function for timestamp
 const getCurrentTimestamp = () => "2025-01-25 18:13:00";
 const CURRENT_USER = "TejasBhovad";
 

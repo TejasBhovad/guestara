@@ -1,6 +1,19 @@
-# Menu Management System - Testing Guide
+# Menu Management System
 
-> Replace object IDs with actual IDs
+Simple REST API for managing categories, subcategories, and items in a menu management system.
+
+# Setup
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Add a `.env` file with the following environment variables:
+
+```plaintext
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/menu (or your MongoDB connection string)
+```
+
+4. Start the server: `npm run dev`
 
 ## Table of Contents
 
@@ -9,6 +22,8 @@
 - [Item Testing](#item-testing)
 - [Validation Testing](#validation-testing)
 - [Search Testing](#search-testing)
+
+  > Replace object IDs with actual IDs
 
 ## Category Testing
 
